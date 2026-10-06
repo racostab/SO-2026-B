@@ -1,0 +1,14 @@
+# Use a lightweight C compiler image
+FROM gcc:latest
+
+# Set working directory
+WORKDIR /app
+
+# Copy the source code
+COPY hijos.c .
+
+# Compile the code
+RUN gcc -o experiment hijos.c
+
+# Run the executable when the container starts
+CMD ["./experiment"]

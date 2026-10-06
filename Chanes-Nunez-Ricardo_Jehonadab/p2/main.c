@@ -16,5 +16,6 @@ int main() {
       printf("Este es el padre\n");
       break;
   }
+  write(1, "12345", 5);
   return 0;
 }

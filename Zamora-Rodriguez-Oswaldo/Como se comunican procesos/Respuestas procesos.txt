@@ -1,0 +1,13 @@
+PREGUNTAS DE REFLEXIÓN
+
+1. ¿Qué pasa con el valor impreso?
+Cada proceso tiene su propia variable en un espacio de memoria diferente. Dependiendo del cambio de contexto y del momento en que cada uno lee el archivo, pueden imprimir valores repetidos o diferentes. No se garantiza una secuencia continua entre los dos procesos.
+
+2. ¿Qué pasa con el valor en el archivo?
+Los dos procesos leen y escriben en el mismo archivo sin controlar el acceso. Pueden leer el mismo número y escribir el mismo incremento, o uno puede sobrescribir lo que escribió el otro. Por eso se pueden perder incrementos e incluso volver a un valor anterior.
+
+3. ¿Cómo se resuelve el problema de tener un solo valor en el archivo?
+Se debe escribir desde el inicio del archivo y recortar el contenido sobrante, en lugar de agregar números al final. En Python se puede usar seek(0), write() y truncate(). Además, para que el contador se incremente correctamente entre los dos procesos, hay que sincronizar todo el acceso de lectura, incremento y escritura con un bloqueo compartido (Lock).
+
+CONCLUSIÓN
+Los procesos tienen variables independientes y se comunican mediante el archivo. Sin sincronización, el cambio de contexto permite que sus lecturas y escrituras se intercalen y se pierdan incrementos. Con un bloqueo compartido, solo un proceso a la vez puede leer, incrementar y escribir; así el contador aumenta de uno en uno, aunque los procesos no necesariamente se alternen.
